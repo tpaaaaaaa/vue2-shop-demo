@@ -1,12 +1,21 @@
 <template>
   <div>
-    根组件
+    <Header></Header>
+
+    <!-- 路由组件的出口 -->
+    <router-view></router-view>
+    <!--登录注册隐藏 -->
+    <Footer v-show="$route.meta.show"></Footer>
   </div>
 </template>
 
 <script>
+import Header from './components/Header/';
+import Footer from './components/Footer/';
 export default {
   name: 'App',
+  components: { Header, Footer },
+
 
 }
 </script>
