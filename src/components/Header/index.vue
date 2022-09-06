@@ -54,6 +54,8 @@ export default {
     methods: {
         // 搜索按钮的回调跳转search路由
         goSearch() {
+            // try {
+
             // 路由传参：
             // 1. 字符串形式
             // this.$router.push('/search'+this.keyword+'?k='+this.keyword.toUpperCase());
@@ -61,6 +63,10 @@ export default {
             // this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`);
             // 3. 对象
             this.$router.push({ name: 'search', params: { keyword: this.keyword }, query: { k: this.keyword.toUpperCase() } });
+            //     console.log(await result);
+            // } catch (err) {
+            //     console.log('失败--重复搜索相同数据', err.message);
+            // }
 
             /* ****************************************************************************** */
             // 1：路由传递参数（对象写法）path是否可以结合params参数一起使用？
