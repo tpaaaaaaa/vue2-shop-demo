@@ -5,5 +5,5 @@ import requests from "./request";
 // /api/product/getBaseCategoryList  get请求 无参数
 
 // 发请求:axios 
-export const reqCategoryList = () => requests({ url: '/api/product/getBaseCategoryList', method: 'get' });
+export const reqCategoryList = () => requests({ url: '/product/getBaseCategoryList', method: 'get' });
 

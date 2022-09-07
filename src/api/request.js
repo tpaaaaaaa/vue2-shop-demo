@@ -10,7 +10,7 @@ const requests = axios.create({
     // 发请求的时候路径会出现api
     baseURL: '/api',
     // 请求超时的时间
-    timeout: 500,
+    timeout: 5000,
 });
 
 // 请求拦截器
