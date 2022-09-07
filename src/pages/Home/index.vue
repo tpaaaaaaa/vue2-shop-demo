@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- 全局组件：三级联动组件 -->
+        <!-- 全局组件：三级联动组件  -->
         <TypeNav></TypeNav>
         <ListContainer></ListContainer>
         <RecommendCompoent></RecommendCompoent>
@@ -8,6 +8,8 @@
         <Like></Like>
         <Floor></Floor>
         <Brand></Brand>
+
+
     </div>
 </template>
 
@@ -19,9 +21,15 @@ import Rank from '@/pages/Home/Rank';
 import Like from '@/pages/Home/Like';
 import Floor from '@/pages/Home/Floor';
 import Brand from '@/pages/Home/Brand';
+
 export default {
     name: "HomePage",
     components: { ListContainer, RecommendCompoent, Rank, Like, Floor, Brand },
+    computed: {
+
+    },
+    methods: {
+    },
 }
 </script>
 

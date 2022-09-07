@@ -8,7 +8,7 @@ module.exports = defineConfig({
     proxy: {
       '/api': {
         target: 'http://gmall-h5-api.atguigu.cn',//请求的API服务器
-        pathRewrite: { '^/api': '' },////重写地址：避免连带请求前缀到API服务器去
+        // pathRewrite: { '^/api': '' },////重写地址：避免连带请求前缀到API服务器去
 
       }
     }
