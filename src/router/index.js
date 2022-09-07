@@ -41,6 +41,7 @@ export default new VueRouter({
     // 配置路由
     routes: [
         {
+            name: 'home',
             path: '/home',
             component: Home,
             meta: { show: true },

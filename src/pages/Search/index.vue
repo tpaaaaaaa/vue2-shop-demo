@@ -1,16 +1,15 @@
 <template>
     <div>
-        <h1>{{$route.params.keyword}}</h1>---{{keyword}}--{{k}}
-        <h1>{{$route.query.k}}</h1>
-        搜索
+        <!-- Search -->
+        <TypeNav></TypeNav>
     </div>
 </template>
 
 <script>
+import TypeNav from '@/components/TypeNav/index.vue';
 export default {
-    name: 'SearchPage',
-    props: ['keyword', 'k'],
-
+    name: "SearchPage",
+    components: { TypeNav }
 }
 </script>
 

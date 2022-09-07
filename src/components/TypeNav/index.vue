@@ -2,7 +2,58 @@
     <!-- 商品分类导航 -->
     <div class="type-nav">
         <div class="container">
-            <h2 class="all">全部商品分类</h2>
+            <div @mouseenter="enterShow" @mouseleave="enterHide">
+                <h2 class="all">全部商品分类</h2>
+                <!-- 过渡动画 -->
+                <transition name="sort">
+                    <!-- 三级数据展示 -->
+                    <div class="sort" v-show="show">
+                        <div class="all-sort-list2" @click="goSearch">
+
+                            <div class="item" v-for="c1 of categoryList.slice(0,-1)"
+                                 :key="c1.categoryId"
+                                 :class="{cur:currentIndex===c1.categoryId}">
+                                <h3 @mouseenter="changeIndex(c1.categoryId)"
+                                    @mouseleave="changeIndex(-1)">
+                                    <a href=""
+                                       :data-category-name="c1.categoryName"
+                                       :data-category-id="'1,'+c1.categoryId">
+                                        {{c1.categoryName}}
+                                    </a>
+                                </h3>
+                                <div class="item-list clearfix">
+
+                                    <div class="subitem" v-for="c2 of c1.categoryChild" :key="c2.categoryId">
+                                        <dl class="fore">
+                                            <dt>
+                                                <a href=""
+                                                   :data-category-name="c2.categoryName"
+                                                   :data-category-id="'2,'+c2.categoryId">
+                                                    {{c2.categoryName}}
+                                                </a>
+                                            </dt>
+                                            <dd>
+
+                                                <em v-for="c3 of c2.categoryChild" :key="c3.categoryId">
+                                                    <a href=""
+                                                       :data-category-name="c3.categoryName"
+                                                       :data-category-id="'3,'+c3.categoryId">
+                                                        {{c3.categoryName}}
+                                                    </a>
+                                                </em>
+
+                                            </dd>
+                                        </dl>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </transition>
+
+            </div>
             <nav class="nav">
                 <a href="###">服装城</a>
                 <a href="###">美妆馆</a>
@@ -13,51 +64,7 @@
                 <a href="###">有趣</a>
                 <a href="###">秒杀</a>
             </nav>
-            <!-- 三级数据展示 -->
-            <div class="sort">
-                <div class="all-sort-list2" @click="goSearch">
 
-                    <div class="item" v-for="c1 of categoryList.slice(0,-1)"
-                         :key="c1.categoryId"
-                         :class="{cur:currentIndex===c1.categoryId}">
-                        <h3 @mouseenter="changeIndex(c1.categoryId)"
-                            @mouseleave="changeIndex(-1)">
-                            <a href=""
-                               :data-category-name="c1.categoryName"
-                               :data-category-id="'category1,'+c1.categoryId">
-                                {{c1.categoryName}}
-                            </a>
-                        </h3>
-                        <div class="item-list clearfix">
-
-                            <div class="subitem" v-for="c2 of c1.categoryChild" :key="c2.categoryId">
-                                <dl class="fore">
-                                    <dt>
-                                        <a href=""
-                                           :data-category-name="c2.categoryName"
-                                           :data-category-id="'category2,'+c2.categoryId">
-                                            {{c2.categoryName}}
-                                        </a>
-                                    </dt>
-                                    <dd>
-
-                                        <em v-for="c3 of c2.categoryChild" :key="c3.categoryId">
-                                            <a href=""
-                                               :data-category-name="c3.categoryName"
-                                               :data-category-id="'category3,'+c3.categoryId">
-                                                {{c3.categoryName}}
-                                            </a>
-                                        </em>
-
-                                    </dd>
-                                </dl>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -72,6 +79,7 @@ export default {
         return {
             // 一级分类鼠标悬浮效果
             currentIndex: -1,
+            show: true,
         }
     },
     computed: {
@@ -95,18 +103,34 @@ export default {
                 name: 'search',
                 query: {
                     categoryName,
-                    categoryId: +categoryId.split(',')[0].at(-1)
+                    categoryType: +categoryId.split(',')[0],
+                    categoryId: +categoryId.split(',')[1],
                 },
             };
             console.log(location);
             this.$router.push(location);
 
         },
+        enterShow() {
+            this.show = true;
+        },
+        enterHide() {
+            this.currentIndex = -1;
+            if (this.$route.name === 'home') return;
+            this.show = false;
+        }
     },
     // 组件挂在完毕，向服务器挂请求
     mounted() {
         // 通知Vuex发请求，获取数据，存储仓库
-        this.$store.dispatch('home/categoryList');
+        // if (this.$store.state.home.categoryList) {
+        //     this.$store.dispatch('home/categoryList');
+        //     console.log('API');
+        // }
+        // /组件挂在成功
+        if (this.$route.path !== '/home')
+            this.show = false;
+
     },
 
 }
@@ -238,6 +262,29 @@ export default {
                     cursor: pointer;
                 }
             }
+        }
+
+        // 过渡动画样式
+        //开始
+        .sort-enter,
+        .sort-leave-to {
+            height: 0;
+            opacity: 0;
+            // transform: rotate(0deg);
+        }
+
+        // 结束
+        .sort-enter-to,
+        .sort-leave {
+            height: 461px;
+            opacity: 1;
+            // transform: rotate(360deg);
+        }
+
+        // 动画时间、速率
+        .sort-enter-active,
+        .sort-leave-active {
+            transition: all .5s linear;
         }
     }
 }
