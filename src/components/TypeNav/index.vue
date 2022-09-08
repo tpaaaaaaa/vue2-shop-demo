@@ -107,9 +107,12 @@ export default {
                     categoryId: +categoryId.split(',')[1],
                 },
             };
-            console.log(location);
-            this.$router.push(location);
 
+            // 保存三级分类和搜索输入的参数
+            if (this.$route.params)
+                location.params = this.$route.params;
+
+            this.$router.push(location);
         },
         enterShow() {
             this.show = true;

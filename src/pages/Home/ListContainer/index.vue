@@ -3,21 +3,16 @@
     <div class="list-container">
         <div class="sortList clearfix">
             <div class="center">
+
+
                 <!--banner轮播-->
-                <div class="swiper-container" id="mySwiper">
+                <div class="swiper" id="swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="./images/home/banner1.jpg" />
+
+                        <div class="swiper-slide" v-for="banner of bannerList" :key="banner.id">
+                            <img :src="banner.imggUrl" />
                         </div>
-                        <!-- <div class="swiper-slide">
-                            <img src="./images/home/banner2.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="./images/home/banner3.jpg" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="./images/home/banner4.jpg" />
-                        </div> -->
+
                     </div>
                     <!-- 如果需要分页器 -->
                     <div class="swiper-pagination"></div>
@@ -111,10 +106,45 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
+// 导入Swiper核心和所需模块
+import Swiper, { Navigation, Pagination, Scrollbar } from 'swiper';
+
 export default {
     name: 'ListContainer',
-
+    computed: {
+        ...mapState('home', ['bannerList']),
+    },
+    watch: {
+        // 监听bannerList的变化
+        bannerList: {
+            handler() {
+                this.$nextTick(() => {
+                    const swiper = new Swiper('.swiper', {
+                        modules: [Navigation, Pagination, Scrollbar],
+                        speed: 500,
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            type: 'bullets',
+                            clickable: true,
+                        },
+                        loop: true,
+                    });
+                    swiper;
+                });
+            },
+        }
+    },
+    mounted() {
+        this.$store.dispatch('home/getBannerList');
+    },
 }
+
 </script>
 
 <style lang="less">

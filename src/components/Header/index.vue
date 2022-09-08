@@ -54,19 +54,29 @@ export default {
     methods: {
         // 搜索按钮的回调跳转search路由
         goSearch() {
-            // try {
-
+            // 保存三级分类和搜索输入的参数
+            if (this.$route.query) {
+                let location = {
+                    name: 'search',
+                    params: {
+                        keyword: this.keyword || undefined,
+                    }
+                };
+                location.query = this.$route.query;
+                this.$router.push(location);
+            }
             // 路由传参：
             // 1. 字符串形式
             // this.$router.push('/search'+this.keyword+'?k='+this.keyword.toUpperCase());
             // 2. 模板字符串
             // this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`);
             // 3. 对象
-            this.$router.push({ name: 'search', params: { keyword: this.keyword }, query: { k: this.keyword.toUpperCase() } });
-            //     console.log(await result);
-            // } catch (err) {
-            //     console.log('失败--重复搜索相同数据', err.message);
-            // }
+            // this.$router.push({
+            //     name: 'search',
+            //     params: {
+            //         keyword: this.keyword,
+            //     },
+            // });
 
             /* ****************************************************************************** */
             // 1：路由传递参数（对象写法）path是否可以结合params参数一起使用？
@@ -81,6 +91,7 @@ export default {
             // this.$router.push({ name: 'search', params: { keyword: '' || undefined }, query: { k: this.keyword } });
 
             // 4：路由组件能不能传递props参数？
+            // 能
 
         },
     },

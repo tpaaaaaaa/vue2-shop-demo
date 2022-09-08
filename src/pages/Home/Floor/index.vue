@@ -3,30 +3,14 @@
     <div class="floor">
         <div class="py-container">
             <div class="title clearfix">
-                <h3 class="fl">家用电器</h3>
+                <h3 class="fl">{{floor.name}}</h3>
                 <div class="fr">
                     <ul class="nav-tabs clearfix">
-                        <li class="active">
-                            <a href="#tab1" data-toggle="tab">热门</a>
+
+                        <li :class="index===0?'active':''" v-for="(nav,index) of floor.navList" :key="index">
+                            <a :href="nav.url" data-toggle="tab">{{nav.text}}</a>
                         </li>
-                        <li>
-                            <a href="#tab2" data-toggle="tab">大家电</a>
-                        </li>
-                        <li>
-                            <a href="#tab3" data-toggle="tab">生活电器</a>
-                        </li>
-                        <li>
-                            <a href="#tab4" data-toggle="tab">厨房电器</a>
-                        </li>
-                        <li>
-                            <a href="#tab5" data-toggle="tab">应季电器</a>
-                        </li>
-                        <li>
-                            <a href="#tab6" data-toggle="tab">空气/净水</a>
-                        </li>
-                        <li>
-                            <a href="#tab7" data-toggle="tab">高端电器</a>
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -35,20 +19,22 @@
                     <div class="floor-1">
                         <div class="blockgary">
                             <ul class="jd-list">
-                                <li>节能补贴</li>
-                                <li>4K电视</li>
-                                <li>空气净化器</li>
-                                <li>IH电饭煲</li>
-                                <li>滚筒洗衣机</li>
-                                <li>电热水器</li>
+                                <li v-for="(keyword,index) of floor.keywords" :key="index">
+                                    {{keyword}}
+                                </li>
+
                             </ul>
-                            <img src="./images/home/floor-1-1.png" />
+                            <img :src="floor.imgUrl" />
                         </div>
                         <div class="floorBanner">
-                            <div class="swiper-container" id="floor1Swiper">
+                            <!-- 轮播图 -->
+                            <div class="swiper" id="swiper2">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img src="./images/home/floor-1-b01.png">
+
+                                    <div class="swiper-slide"
+                                         v-for="carousel of floor.carouselList"
+                                         :key="carousel.id">
+                                        <img :src="carousel.imgUrl">
                                     </div>
 
                                 </div>
@@ -59,26 +45,27 @@
                                 <div class="swiper-button-prev"></div>
                                 <div class="swiper-button-next"></div>
                             </div>
+
                         </div>
                         <div class="split">
                             <span class="floor-x-line"></span>
                             <div class="floor-conver-pit">
-                                <img src="./images/home/floor-1-2.png" />
+                                <img :src="floor.recommendList[0]" />
                             </div>
                             <div class="floor-conver-pit">
-                                <img src="./images/home/floor-1-3.png" />
+                                <img :src="floor.recommendList[1]" />
                             </div>
                         </div>
                         <div class="split center">
-                            <img src="./images/home/floor-1-4.png" />
+                            <img :src="floor.bigImg" />
                         </div>
                         <div class="split">
                             <span class="floor-x-line"></span>
                             <div class="floor-conver-pit">
-                                <img src="./images/home/floor-1-5.png" />
+                                <img :src="floor.recommendList[2]" />
                             </div>
                             <div class="floor-conver-pit">
-                                <img src="./images/home/floor-1-6.png" />
+                                <img :src="floor.recommendList[3]" />
                             </div>
                         </div>
                     </div>
@@ -89,9 +76,40 @@
 </template>
 
 <script>
+// 导入Swiper核心和所需模块
+import Swiper, { Navigation, Pagination, Scrollbar } from 'swiper';
 export default {
     name: 'FloorCompoent',
+    props: ['floor'],
+    watch: {
+        floor: {
+            immediate: true,//立即监听
+            handler() {
+                this.$nextTick(() => {
 
+                    const swiper = new Swiper('.swiper', {
+                        modules: [Navigation, Pagination, Scrollbar],
+                        speed: 500,
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            type: 'bullets',
+                            clickable: true,
+                        },
+                        loop: true,
+                    });
+                    swiper;
+                });
+
+            }
+        }
+    },
+    mounted() {
+
+    }
 }
 </script>
 

@@ -11,6 +11,14 @@ Vue.config.productionTip = false
 import router from '@/router/index.js';
 // 仓库Vuex
 import store from './store';
+// mockServe.js,引入模拟的数据
+import '@/mock/mockServe';
+// 引入Swiper样式
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 
 new Vue({
   render: h => h(App),
