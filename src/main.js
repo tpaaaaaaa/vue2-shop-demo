@@ -19,9 +19,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+// import { reqGetSearchInfo } from '@/api';
+// reqGetSearchInfo();
 
 new Vue({
   render: h => h(App),
+  beforeCreate() {
+    // 全局事件总线
+    Vue.prototype.$bus = this;
+  },
   // 注册路由，ES6对象简写组件属性增加：$route、$router
   router,
   // 注册仓库，属性增加：$store

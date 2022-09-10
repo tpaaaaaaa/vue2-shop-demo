@@ -1,28 +1,20 @@
 <template>
     <!--selector-->
     <div class="clearfix selector">
+        <!-- 品牌 -->
         <div class="type-wrap logo">
             <div class="fl key brand">品牌</div>
             <div class="value logos">
                 <ul class="logo-list">
-                    <li>索尼（SONY）</li>
-                    <li>TCL</li>
-                    <li>长虹（CHANGHONG）</li>
-                    <li>飞利浦（PHILIPS）</li>
-                    <li>风行电视</li>
-                    <li><img src="../images/search/phone06.png" /></li>
-                    <li><img src="../images/search/phone07.png" /></li>
-                    <li><img src="../images/search/phone08.png" /></li>
-                    <li><img src="../images/search/phone09.png" /></li>
-                    <li><img src="../images/search/phone10.png" /></li>
-                    <li><img src="../images/search/phone11.png" /></li>
-                    <li><img src="../images/search/phone12.png" /></li>
-                    <li><img src="../images/search/phone12.png" /></li>
-                    <li><img src="../images/search/phone14.png" /></li>
-                    <li><img src="../images/search/phone01.png" /></li>
-                    <li><img src="../images/search/phone06.png" /></li>
-                    <li><img src="../images/search/phone07.png" /></li>
-                    <li><img src="../images/search/phone02.png" /></li>
+
+                    <li v-for="trademark of trademarkList"
+                        :key="trademark.tmId"
+                        :data-trademark="trademark.tmName"
+                        @click="tradeMarkHandler(trademark)">
+
+                        {{trademark.tmName}}
+                    </li>
+
                 </ul>
             </div>
             <div class="ext">
@@ -30,138 +22,43 @@
                 <a href="javascript:void(0);">更多</a>
             </div>
         </div>
-        <div class="type-wrap">
-            <div class="fl key">网络制式</div>
+        <!-- 商品属性 -->
+        <div class="type-wrap" v-for="attr of attrsList" :key="attr.attrId">
+            <div class="fl key">{{attr.attrName}}</div>
             <div class="fl value">
                 <ul class="type-list">
-                    <li>
-                        <a>GSM（移动/联通2G）</a>
+                    <li v-for="(attrValue,index) of attr.attrValueList"
+                        :key="index"
+                        @click="attrInfo(attr,attrValue)">
+                        <a>{{attrValue}}</a>
                     </li>
-                    <li>
-                        <a>电信2G</a>
-                    </li>
-                    <li>
-                        <a>电信3G</a>
-                    </li>
-                    <li>
-                        <a>移动3G</a>
-                    </li>
-                    <li>
-                        <a>联通3G</a>
-                    </li>
-                    <li>
-                        <a>联通4G</a>
-                    </li>
-                    <li>
-                        <a>电信3G</a>
-                    </li>
-                    <li>
-                        <a>移动3G</a>
-                    </li>
-                    <li>
-                        <a>联通3G</a>
-                    </li>
-                    <li>
-                        <a>联通4G</a>
-                    </li>
+
                 </ul>
             </div>
             <div class="fl ext"></div>
         </div>
-        <div class="type-wrap">
-            <div class="fl key">显示屏尺寸</div>
-            <div class="fl value">
-                <ul class="type-list">
-                    <li>
-                        <a>4.0-4.9英寸</a>
-                    </li>
-                    <li>
-                        <a>4.0-4.9英寸</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="fl ext"></div>
-        </div>
-        <div class="type-wrap">
-            <div class="fl key">摄像头像素</div>
-            <div class="fl value">
-                <ul class="type-list">
-                    <li>
-                        <a>1200万以上</a>
-                    </li>
-                    <li>
-                        <a>800-1199万</a>
-                    </li>
-                    <li>
-                        <a>1200-1599万</a>
-                    </li>
-                    <li>
-                        <a>1600万以上</a>
-                    </li>
-                    <li>
-                        <a>无摄像头</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="fl ext"></div>
-        </div>
-        <div class="type-wrap">
-            <div class="fl key">价格</div>
-            <div class="fl value">
-                <ul class="type-list">
-                    <li>
-                        <a>0-500元</a>
-                    </li>
-                    <li>
-                        <a>500-1000元</a>
-                    </li>
-                    <li>
-                        <a>1000-1500元</a>
-                    </li>
-                    <li>
-                        <a>1500-2000元</a>
-                    </li>
-                    <li>
-                        <a>2000-3000元 </a>
-                    </li>
-                    <li>
-                        <a>3000元以上</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="fl ext">
-            </div>
-        </div>
-        <div class="type-wrap">
-            <div class="fl key">更多筛选项</div>
-            <div class="fl value">
-                <ul class="type-list">
-                    <li>
-                        <a>特点</a>
-                    </li>
-                    <li>
-                        <a>系统</a>
-                    </li>
-                    <li>
-                        <a>手机内存 </a>
-                    </li>
-                    <li>
-                        <a>单卡双卡</a>
-                    </li>
-                    <li>
-                        <a>其他</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="fl ext">
-            </div>
-        </div>
+
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
     name: 'SearchSelector',
+    computed: {
+        ...mapGetters('search', ['attrsList', 'trademarkList'])
+    },
+    methods: {
+        // 品牌点击事件
+        tradeMarkHandler(trademark) {
+            // 子传父--自定义事件
+            this.$emit('trademarkInfo', trademark);
+        },
+        // 商品属性
+        attrInfo(attr, value) {
+            this.$emit('attrInfo', attr, value)
+        }
+    }
 
 }
 </script>

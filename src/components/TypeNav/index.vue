@@ -99,12 +99,16 @@ export default {
             // 判断数据属性是否存在
             if (!categoryName) return;
             if (!categoryId) return;
+
+
+
             const location = {
                 name: 'search',
                 query: {
                     categoryName,
-                    categoryType: +categoryId.split(',')[0],
-                    categoryId: +categoryId.split(',')[1],
+                    "category1Id": +categoryId.split(',')[0] === 1 ? categoryId.split(',')[1] : undefined,
+                    "category2Id": +categoryId.split(',')[0] === 2 ? categoryId.split(',')[1] : undefined,
+                    "category3Id": +categoryId.split(',')[0] === 3 ? categoryId.split(',')[1] : undefined,
                 },
             };
 

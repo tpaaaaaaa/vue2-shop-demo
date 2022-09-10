@@ -12,3 +12,12 @@ export const reqGetBannerList = () => mockRequests.get('/banner');
 
 // floor数据
 export const reqFloorList = () => mockRequests.get('/floor');
+
+// 获取搜索模块/api/list POST
+// 参数：
+// params至少是一个空对象
+export const reqGetSearchInfo = (params) => requests({
+    url: '/list',
+    method: 'post',
+    data: params,
+});
