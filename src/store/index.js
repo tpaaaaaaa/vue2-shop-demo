@@ -28,11 +28,16 @@ Vue.use(Vuex);
 
 import home from '@/store/home';
 import search from '@/store/search';
+import detail from '@/store/detail';
+import shopCart from '@/store/shopCart';
+
 
 // 对外暴露Store类的一个实例
 export default new Vuex.Store({
     modules: {
         home,
         search,
+        detail,
+        shopCart
     }
 });
