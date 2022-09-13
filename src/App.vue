@@ -18,6 +18,7 @@ export default {
   mounted() {
     // 通知Vuex发请求，获取数据，存储仓库
     this.$store.dispatch('home/categoryList');
+
   },
 
 }

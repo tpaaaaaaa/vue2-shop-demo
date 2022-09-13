@@ -51,12 +51,14 @@ export default [
         },
     },
     {
+        name: 'login',
         path: '/login',
         component: Login,
         meta: { show: false },
 
     },
     {
+        name: 'register',
         path: '/register',
         component: Register,
         meta: { show: false },

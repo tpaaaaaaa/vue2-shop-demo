@@ -33,6 +33,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch('home/getFloorList');
+
     }
 }
 </script>

@@ -6,11 +6,15 @@
             <div class="container">
                 <div class="loginList">
                     <p>尚品汇欢迎您！</p>
-                    <p>
+                    <p v-if="!userName">
                         <span>请</span>
                         <!-- 声明式导航，必须有to目的地 -->
                         <router-link to="/login">登录</router-link>
                         <router-link to="/register" class="register">免费注册</router-link>
+                    </p>
+                    <p v-else>
+                        <a>{{userName}}</a>
+                        <a class="register" @click="logOut">退出登录</a>
                     </p>
                 </div>
                 <div class="typeList">
@@ -49,6 +53,12 @@ export default {
     data() {
         return {
             keyword: '',
+        }
+    },
+    computed: {
+        // 用户名信息
+        userName() {
+            return this.$store.state.user.userInfo.name;
         }
     },
     methods: {
@@ -92,8 +102,18 @@ export default {
 
             // 4：路由组件能不能传递props参数？
             // 能
-
         },
+        async logOut() {
+            try {
+
+                // 1.发请求，通知服务器退出登录（清除token
+                await this.$store.dispatch('user/userLogout');
+                this.$router.push('/home');
+                // 2.清除数据
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
     },
     mounted() {
         // 通过全局事件总线清除关键字

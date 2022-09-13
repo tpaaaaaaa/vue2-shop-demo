@@ -22,6 +22,12 @@ requests.interceptors.request.use((config) => {
         // 请求头加一个字段，为了添加
         config.headers.userTempId = store.state.detail.uuid_token;
     }
+
+    // 判断token
+    if (store.state.user.token) {
+        config.headers.token = store.state.user.token;
+    }
+
     nProgress.start();//进度条开始
     nProgress.inc();//进度条增加
     // config 配置对象

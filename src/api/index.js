@@ -51,3 +51,35 @@ export const reqUpdateCartChecked = (skuId, isChecked) => requests({
     url: `/cart/checkCart/${skuId}/${isChecked}`,
     method: 'get'
 });
+
+// 获取验证码
+export const reqGetCode = (phone) => requests({
+    url: `user/passport/sendCode/${phone}`,
+    method: 'get',
+});
+
+// 注册：  /api/user/passport/register   post   phone, password, code, nickName
+export const reqRegister = (data) => requests({
+    url: '/user/passport/register',
+    method: 'post',
+    data,
+});
+
+// 登录  /api/user/passport/login  post  phone,password
+export const reqUserLogin = (data) => requests({
+    url: '/user/passport/login',
+    method: 'post',
+    data,
+})
+
+// token检验   /api/user/passport/auth/getUserInfo  get
+export const reqGetUserInfo = () => requests({
+    url: '/user/passport/auth/getUserInfo',
+    method: 'get',
+})
+
+// 退出登录
+export const reqLogout = () => requests({
+    url: '/user/passport/logout',
+    method: 'get',
+})
