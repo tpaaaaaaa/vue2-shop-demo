@@ -31,6 +31,7 @@ import search from '@/store/search';
 import detail from '@/store/detail';
 import shopCart from '@/store/shopCart';
 import user from '@/store/user';
+import trade from '@/store/trade';
 
 
 // 对外暴露Store类的一个实例
@@ -41,5 +42,6 @@ export default new Vuex.Store({
         detail,
         shopCart,
         user,
+        trade,
     }
 });

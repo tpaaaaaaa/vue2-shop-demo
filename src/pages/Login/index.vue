@@ -66,6 +66,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'LoginPage',
     data() {
@@ -80,7 +81,9 @@ export default {
                 // 登陆成功
                 const { phone, password } = this;
                 (phone && password) && await this.$store.dispatch('user/userLogin', { phone, password });
-                this.$router.push('/home');
+                console.log(this.$route.query);
+                let toPath = this.$route.query.redirect || '/home';
+                this.$router.push(toPath);
             } catch (err) {
                 console.log(err.message);
             }

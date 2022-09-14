@@ -56,8 +56,25 @@ router.beforeEach(async (to, from, next) => {
      * next: 放行函数---next()放行---next(path)放行到指定路由
      */
     let token = store.state.user.token;
+    const noEnter = [
+        'pay',
+        'paysuccess',
+        'trade',
+        'center',
+        'myOrder',
+        'groupOrder',
+        'addcarsuccess',
+        'shopCart',
+
+    ];
+
     // 未登录
-    if (!token) return next();
+    if (!token) {
+        let toPath = to.path;
+        if (noEnter.some(route => route === to.name))
+            return next('/login?redirect=' + toPath);
+        return next();
+    }
 
     // 登陆了还去登录页面
     if (to.name === 'login')

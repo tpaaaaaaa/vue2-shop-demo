@@ -18,8 +18,8 @@
                     </p>
                 </div>
                 <div class="typeList">
-                    <a href="###">我的订单</a>
-                    <a href="###">我的购物车</a>
+                    <router-link to="/center">我的订单</router-link>
+                    <router-link to="/shopCart">我的购物车</router-link>
                     <a href="###">我的尚品汇</a>
                     <a href="###">尚品汇会员</a>
                     <a href="###">企业采购</a>
@@ -32,7 +32,7 @@
         <!--头部第二行 搜索区域-->
         <div class="bottom">
             <h1 class="logoArea">
-                <a class="logo" title="尚品汇" href="###" target="_blank">
+                <a class="logo" title="尚品汇" @click="$router.push('/home')">
                     <img src="./images/logo.png" alt="">
                 </a>
             </h1>
@@ -176,6 +176,8 @@ export default {
             float: left;
 
             .logo {
+                cursor: pointer;
+
                 img {
                     width: 175px;
                     margin: 25px 45px;

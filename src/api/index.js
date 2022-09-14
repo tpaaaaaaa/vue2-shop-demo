@@ -70,16 +70,53 @@ export const reqUserLogin = (data) => requests({
     url: '/user/passport/login',
     method: 'post',
     data,
-})
+});
 
 // token检验   /api/user/passport/auth/getUserInfo  get
 export const reqGetUserInfo = () => requests({
     url: '/user/passport/auth/getUserInfo',
     method: 'get',
-})
+});
 
 // 退出登录
 export const reqLogout = () => requests({
     url: '/user/passport/logout',
     method: 'get',
-})
+});
+
+// 获取用户地址信息
+export const reqAddressInfo = () => requests({
+    url: '/user/userAddress/auth/findUserAddressList',
+    method: 'get',
+});
+
+// 获取商品清单   /api/order/auth/trade   get
+export const reqOrderInfo = () => requests({
+    url: '/order/auth/trade',
+    method: 'get',
+});
+
+// 提交组件 /api/order/auth/submitOrder?tradeNo={tradeNo}  post 
+export const reqSubmitOrder = (tradeNo, data) => requests({
+    url: `order/auth/submitOrder?tradeNo=${tradeNo}`,
+    method: 'post',
+    data,
+});
+
+// 获取订单信息   /api/payment/weixin/createNative/{orderId}
+export const reqPayInfo = (orderId) => requests({
+    url: `/payment/weixin/createNative/${orderId}`,
+    method: 'get',
+});
+
+// 查询支付情况  /api/payment/weixin/queryPayStatus/{orderId}
+export const reqPayStatus = (orderId) => requests({
+    url: `/payment/weixin/queryPayStatus/${orderId}`,
+    method: 'get',
+});
+
+// 获取我的订单列表   /api/order/auth/{page}/{limit}  get
+export const reqMyOrderList = (page, limit) => requests({
+    url: `/order/auth/${page}/${limit}`,
+    method: 'get',
+});
