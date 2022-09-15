@@ -1,20 +1,25 @@
+// 路由懒加载
+
 // 引入一级路由组件
-import Home from '@/pages/Home';
-import Search from '@/pages/Search';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import Detail from '@/pages/Detail';
-import addCarSuccess from '@/pages/AddCartSuccess';
-import ShopCart from '@/pages/ShopCart';
-import Trade from '@/pages/Trade';
-import Pay from '@/pages/Pay';
-import PaySuccess from '@/pages/PaySuccess';
-import Center from '@/pages/Center';
+const Home = () => import('@/pages/Home');
+const Search = () => import('@/pages/Search');
+const Login = () => import('@/pages/Login');
+const Register = () => import('@/pages/Register');
+const Detail = () => import('@/pages/Detail');
+const addCarSuccess = () => import('@/pages/AddCartSuccess');
+const ShopCart = () => import('@/pages/ShopCart');
+const Trade = () => import('@/pages/Trade');
+const Pay = () => import('@/pages/Pay');
+const PaySuccess = () => import('@/pages/PaySuccess');
+const Center = () => import('@/pages/Center');
 
 // 引入二级路由
-import MyOrder from '@/pages/Center/myOrder';
-import GroupOrder from '@/pages/Center/groupOrder';
+const MyOrder = () => import('@/pages/Center/myOrder');
+const GroupOrder = () => import('@/pages/Center/groupOrder');
 
+
+
+// 路由配置信息
 export default [
     {
         name: 'center',

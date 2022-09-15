@@ -48,7 +48,8 @@ Vue.use(VueLazyload, {
   lodaing: tp,
 });
 
-
+// 引入表单校验插件
+import "@/plugins/validate.js";
 
 new Vue({
   render: h => h(App),
